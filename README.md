@@ -9,8 +9,14 @@ chainlit run chatbot.py
 * To use the version of the chatbot with RAG, run the following:
 
 ```
-chainlit run chatbot_with_pdf.py
+chainlit run chatbot_rag.py
 ```
 
-The basic version of the chatbot will ask for your Hugginface token before starting. 
-The RAG verson of the chatbot will also ask you for the location of the pdf file it is supposed to draw data from.
+The code requires making a .env file in the main folder directory with a Huggingface API Token defined as:
+```
+HUGGINGFACEHUB_API_TOKEN = <your-key>
+```
+
+The RAG verson of the chatbot will read all pdf files places in the database folder.
+
+![Example](example/example.jpg)

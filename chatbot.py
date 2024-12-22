@@ -1,39 +1,51 @@
 import os
+from dotenv import load_dotenv
 import chainlit as cl
 from langchain import HuggingFaceHub, PromptTemplate, LLMChain
 from getpass import getpass
 from huggingface_hub import login
 from langchain.prompts import ChatPromptTemplate
+from langchain_core.messages import HumanMessage, SystemMessage
 
-HUGGINGFACEHUB_API_TOKEN = getpass(prompt = "Token: ")
-os.environ['HUGGINGFACEHUB_API_TOKEN'] = HUGGINGFACEHUB_API_TOKEN
+#loading the API key
+load_dotenv(override=True)
 
-model_id = "meta-llama/Meta-Llama-3-8B-Instruct" # "TinyLlama/TinyLlama-1.1B-Chat-v1.0", "openai-community/gpt2-medium", "google/flan-t5-base" 
+model_id = "meta-llama/Meta-Llama-3-8B-Instruct" # "meta-llama/Meta-Llama-3-8B-Instruct" , "TinyLlama/TinyLlama-1.1B-Chat-v1.0", "openai-community/gpt2-medium", "google/flan-t5-base" 
 conv_model = HuggingFaceHub(huggingfacehub_api_token=
                             os.environ['HUGGINGFACEHUB_API_TOKEN'],
                             repo_id=model_id,
                             model_kwargs={"temperature":0.8, 
-                            "max_new_tokens":500,
+                            "max_new_tokens":250,
                             "max_length": 64})
 
+# template = """
 
-# template = """Question: {question}
+# Answer in a very concise manner
 
-# Answer: Let's take this step by step
+# {question}
+
 # """
-template = """Let's go this step by step
 
-{question}
+# prompt = PromptTemplate(template=template, input_variables=['question'])
 
-"""
-
+prompt = ChatPromptTemplate.from_messages(
+    [
+    ("system", 
+    """
+    Answer very shortly and to the point.
+    The answer should not exceed more than a few lines.
+    Answer only 1 question.
+    """
+    ),
+    ("user", "{question}\n"),
+    ]
+)
 
 @cl.on_chat_start
 def main():
-    prompt = PromptTemplate(template=template, input_variables=['question'])
     conv_chain = LLMChain(llm=conv_model,
                           prompt=prompt,
-                          verbose=True)
+                          verbose=False)
     
     cl.user_session.set("llm_chain", conv_chain)
     
