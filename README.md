@@ -17,6 +17,6 @@ The code requires making a .env file in the main folder directory with a Hugging
 HUGGINGFACEHUB_API_TOKEN = <your-key>
 ```
 
-The RAG verson of the chatbot will read all pdf files placed in the database folder.
+The RAG verson of the chatbot will read all pdf files placed in the `database` folder.
 
 ![Example](example/example.jpg)
