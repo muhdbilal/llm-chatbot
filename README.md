@@ -1,4 +1,8 @@
-Basic LLM chatbot with retrieval augmented generation (RAG), built using Langchain and Chainlit
+# LLM Chatbot
+
+### LLM chatbot with retrieval augmented generation (RAG), built using Langchain and Chainlit
+
+![Example](example/example.jpg)
 
 * To use the basic version of the chatbot, run the following:
 
@@ -19,4 +23,3 @@ HUGGINGFACEHUB_API_TOKEN = <your-key>
 
 The RAG verson of the chatbot will read all pdf files placed in the `database` folder.
 
-![Example](example/example.jpg)
