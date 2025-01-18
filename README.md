@@ -1,6 +1,6 @@
 # LLM Chatbot
 
-### LLM chatbot with retrieval augmented generation (RAG), built using Langchain and Chainlit
+### LLM chatbot with Retrieval Augmented Generation (RAG), built using Langchain and Chainlit
 
 ![Example](example/example.jpg)
 
